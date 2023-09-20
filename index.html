@@ -27,6 +27,12 @@
       href="https://fonts.googleapis.com/css2?family=Lato:ital@1&display=swap"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@1,700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="game-header">Welcome To Tic Tac Toe!</div>
@@ -91,6 +97,8 @@
     </div>
     <div class="error-container"></div>
     <div class="result-container"></div>
+    <div class="results">X-WINS: 0, O-WINS: 0, DRAWS: 0</div>
+    <button class="reset-scores" onclick="resetScores();">Reset Scores</button>
     <div>
       <button class="reset-button" onclick="resetGame();">Reset Game</button>
     </div>
