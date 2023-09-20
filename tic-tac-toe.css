@@ -21,6 +21,12 @@
     grid-template-rows: 1fr 1fr 1fr;
 }
 
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 button {
     height: 100px;
     width: 100px;
@@ -145,4 +151,5 @@ body {
     justify-content: center;
     width: 100%;
 }
+
 
