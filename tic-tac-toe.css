@@ -152,4 +152,31 @@ body {
     width: 100%;
 }
 
+@media (max-width: 750px) {
+
+    button {
+        height: 50px;
+        width: 50px;
+        font-size: 30px;
+    }
+
+    .turn-container {
+        font-size: 50px;
+    }
+
+    .result-container {
+        font-size: 28px;
+    }
+
+    .reset-button, .reset-scores {
+        font-size: 10px;
+        width: 75px;
+    }
+
+    .results {
+        font-size: 20px;
+    }
+    
+}
+
 
