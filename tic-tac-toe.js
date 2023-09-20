@@ -102,13 +102,13 @@ function playGame(buttonPressed, index) {
     document.querySelector('.error-container').innerHTML = '';
 
     if (turnCounter % 2 === 0) {
-        document.querySelector('.turn-container').innerHTML = 'O Turn :';
+        document.querySelector('.turn-container').innerHTML = 'Player O Turn :';
         buttonElement.innerHTML = 'X';
         buttonElement.classList.add('x-style');
         gameArray[index] = 1;
     }
     else {
-        document.querySelector('.turn-container').innerHTML = 'X Turn :';
+        document.querySelector('.turn-container').innerHTML = 'Player X Turn :';
         buttonElement.innerHTML = 'O';
         buttonElement.classList.add('o-style');
         gameArray[index] = 2;
@@ -123,7 +123,7 @@ function playGame(buttonPressed, index) {
 
     else if (currentResult === 'x') {
         document.querySelector('.turn-container').innerHTML = '';
-        document.querySelector('.result-container').innerHTML = 'X WON! &#x1F44D;';
+        document.querySelector('.result-container').innerHTML = 'Player X WON! &#x1F44D;';
         document.querySelector('.reset-button').innerHTML = 'Play Again';
         results.xWins++;
         localStorage.setItem('scores', JSON.stringify(results));
@@ -133,7 +133,7 @@ function playGame(buttonPressed, index) {
 
     else if (currentResult === 'o') {
         document.querySelector('.turn-container').innerHTML = '';
-        document.querySelector('.result-container').innerHTML = 'O WON! &#x1F44D;';
+        document.querySelector('.result-container').innerHTML = 'Player O WON! &#x1F44D;';
         document.querySelector('.reset-button').innerHTML = 'Play Again';
         results.oWins++;
         localStorage.setItem('scores', JSON.stringify(results));
@@ -168,7 +168,7 @@ function resetGame() {
     resetButton('seventh-button');
     resetButton('eigth-button');
     resetButton('ninth-button');
-    document.querySelector('.turn-container').innerHTML = 'X Turn :';
+    document.querySelector('.turn-container').innerHTML = 'Player X Turn :';
     document.querySelector('.error-container').innerHTML = '';
     document.querySelector('.result-container').innerHTML = '';
 }

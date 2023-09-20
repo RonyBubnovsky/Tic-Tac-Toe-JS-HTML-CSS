@@ -36,7 +36,7 @@
   </head>
   <body>
     <div class="game-header">Welcome To Tic Tac Toe!</div>
-    <div class="turn-container">X Turn :</div>
+    <div class="turn-container">Player X Turn :</div>
     <div class="game-board-container">
       <div class="game-board">
         <div>
@@ -97,11 +97,15 @@
     </div>
     <div class="error-container"></div>
     <div class="result-container"></div>
-    <div class="results"></div>
-    <button class="reset-scores" onclick="resetScores();">Reset Scores</button>
-    <div>
+    <div class="reset-container">
       <button class="reset-button" onclick="resetGame();">Reset Game</button>
     </div>
+    <div class="scores-container">
+      <button class="reset-scores" onclick="resetScores();">
+        Reset Scores
+      </button>
+    </div>
+    <div class="results"></div>
     <script src="tic-tac-toe.js"></script>
   </body>
 </html>

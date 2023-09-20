@@ -6,17 +6,19 @@
     margin-bottom: 70px;
     font-family: 'Mooli', sans-serif;
     font-weight: bold;
+    width: 100%;
 }
 
 .game-board-container {
+    width: 100%;
     display: flex;
     justify-content: center;
 }
 
 .game-board {
     display: grid;
-    grid-template-columns: 100px 100px 100px;
-    grid-template-rows: 100px 100px 100px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
 }
 
 button {
@@ -92,9 +94,6 @@ button:hover {
 }
 
 .reset-button {
-    position: absolute;
-    right: 0;
-    bottom: 0;
     font-size: 16px;
     height:50px;
     width: 150px;
@@ -115,22 +114,20 @@ body {
 }
 
 .results {
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
     font-family: 'Ubuntu', sans-serif;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    margin-left: 8px;
     font-size: 30px;
+    color: white;
 }
 
 .reset-scores {
-    position: absolute;
-    bottom: 0;
-    left: 485px;
     font-size: 16px;
-    width: 120px;
-    height: 50px;
-    margin-top: 8px;
+    height:50px;
+    width: 150px;
+    font-family: 'Lato', sans-serif;
     color: white;
     background-color: rgb(108, 79, 136);
 }
@@ -141,3 +138,11 @@ body {
     background-color: rgb(108, 79, 136);
     box-shadow: inset 1px 1px darkgoldenrod;
 }
+
+.scores-container, .reset-container {
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
