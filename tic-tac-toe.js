@@ -1,12 +1,11 @@
 let turnCounter = 0;
 let gameArray = [0,0,0,0,0,0,0,0,0];
 let currentResult = '';
-const results = {
+const results = JSON.parse(localStorage.getItem('scores')) || {
     xWins: 0, 
     oWins: 0, 
     draws: 0
 };
-
 function checkGameStatus() {
     if (gameArray[0] === gameArray[4] && gameArray[0] === gameArray[8]) {
         if (gameArray[0] === 1) {
@@ -127,6 +126,7 @@ function playGame(buttonPressed, index) {
         document.querySelector('.result-container').innerHTML = 'X WON! &#x1F44D;';
         document.querySelector('.reset-button').innerHTML = 'Play Again';
         results.xWins++;
+        localStorage.setItem('scores', JSON.stringify(results));
         document.querySelector('.results').innerHTML = `X-WINS: ${results.xWins}, O-WINS: ${results.oWins}, DRAWS: ${results.draws}`;
         return;
     }
@@ -136,6 +136,7 @@ function playGame(buttonPressed, index) {
         document.querySelector('.result-container').innerHTML = 'O WON! &#x1F44D;';
         document.querySelector('.reset-button').innerHTML = 'Play Again';
         results.oWins++;
+        localStorage.setItem('scores', JSON.stringify(results));
         document.querySelector('.results').innerHTML = `X-WINS: ${results.xWins}, O-WINS: ${results.oWins}, DRAWS: ${results.draws}`;
         return;
     }
@@ -144,6 +145,7 @@ function playGame(buttonPressed, index) {
     document.querySelector('.reset-button').innerHTML = 'Play Again';
     document.querySelector('.turn-container').innerHTML = '';
     results.draws++;
+    localStorage.setItem('scores', JSON.stringify(results));
     document.querySelector('.results').innerHTML = `X-WINS: ${results.xWins}, O-WINS: ${results.oWins}, DRAWS: ${results.draws}`;
     return;
 
@@ -189,8 +191,15 @@ function resetButton(b) {
 }
 
 function resetScores () {
+    localStorage.removeItem('scores');
     results.draws = 0;
     results.oWins = 0; 
     results.xWins = 0;
     document.querySelector('.results').innerHTML = `X-WINS: ${results.xWins}, O-WINS: ${results.oWins}, DRAWS: ${results.draws}`;
 }
+
+function showScores() {
+    document.querySelector('.results').innerHTML = `X-WINS: ${results.xWins}, O-WINS: ${results.oWins}, DRAWS: ${results.draws}`;
+}
+
+window.addEventListener("load", showScores);
