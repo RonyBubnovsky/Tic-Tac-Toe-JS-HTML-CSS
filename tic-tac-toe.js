@@ -7,6 +7,8 @@ const results = JSON.parse(localStorage.getItem('scores')) || {
     draws: 0
 };
 function checkGameStatus() {
+    console.log(gameArray);
+
     if (gameArray[0] === gameArray[4] && gameArray[0] === gameArray[8]) {
         if (gameArray[0] === 1) {
             return 'x';
@@ -16,7 +18,7 @@ function checkGameStatus() {
         }
     }
 
-    else if (gameArray[2] === gameArray[4] && gameArray[2] === gameArray[6]) {
+    if (gameArray[2] === gameArray[4] && gameArray[2] === gameArray[6]) {
         if (gameArray[2] === 1) {
             return 'x';
         }
@@ -25,7 +27,7 @@ function checkGameStatus() {
         }
     }
 
-    else if (gameArray[0] === gameArray[1] && gameArray[0] === gameArray[2]) {
+    if (gameArray[0] === gameArray[1] && gameArray[0] === gameArray[2]) {
         if (gameArray[0] === 1) {
             return 'x';
         }
@@ -34,7 +36,7 @@ function checkGameStatus() {
         }
     }
 
-    else if (gameArray[3] === gameArray[4] && gameArray[3] === gameArray[5]) {
+    if (gameArray[3] === gameArray[4] && gameArray[3] === gameArray[5]) {
         if (gameArray[3] === 1) {
             return 'x';
         }
@@ -43,7 +45,7 @@ function checkGameStatus() {
         }
     }
 
-    else if (gameArray[6] === gameArray[7] && gameArray[6] === gameArray[8]) {
+    if (gameArray[6] === gameArray[7] && gameArray[6] === gameArray[8]) {
         if (gameArray[6] === 1) {
             return 'x';
         }
@@ -52,7 +54,7 @@ function checkGameStatus() {
         }
     }
 
-    else if (gameArray[0] === gameArray[3] && gameArray[0] === gameArray[6]) {
+    if (gameArray[0] === gameArray[3] && gameArray[0] === gameArray[6]) {
         if (gameArray[0] === 1) {
             return 'x';
         }
@@ -61,7 +63,7 @@ function checkGameStatus() {
         }
     }
 
-    else if (gameArray[1] === gameArray[4] && gameArray[1] === gameArray[7]) {
+    if (gameArray[1] === gameArray[4] && gameArray[1] === gameArray[7]) {
         if (gameArray[1] === 1) {
             return 'x';
         }
@@ -70,7 +72,7 @@ function checkGameStatus() {
         }
     }
 
-    else if (gameArray[2] === gameArray[5] && gameArray[2] === gameArray[8]) {
+    if (gameArray[2] === gameArray[5] && gameArray[2] === gameArray[8]) {
         if (gameArray[2] === 1) {
             return 'x';
         }
@@ -87,7 +89,6 @@ function checkGameStatus() {
 }
 
 function playGame(buttonPressed, index) {
-
     if (currentResult === 'draw' || currentResult === 'x' || currentResult === 'o') {
         return;
     }
