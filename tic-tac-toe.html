@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe Game</title>
+    <link rel="stylesheet" href="tic-tac-toe.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mooli&family=Roboto:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fuggles&family=Mooli&family=Roboto:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital@1&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="game-header">Welcome To Tic Tac Toe!</div>
+    <div class="turn-container">X Turn :</div>
+    <div class="game-board-container">
+      <div class="game-board">
+        <div>
+          <button
+            class="first-button"
+            onclick="playGame('first-button', 0);"
+          ></button>
+        </div>
+        <div>
+          <button
+            class="second-button"
+            onclick="playGame('second-button', 1);"
+          ></button>
+        </div>
+        <div>
+          <button
+            class="third-button"
+            onclick="playGame('third-button', 2);"
+          ></button>
+        </div>
+        <div>
+          <button
+            class="fourth-button"
+            onclick="playGame('fourth-button', 3);"
+          ></button>
+        </div>
+        <div>
+          <button
+            class="fifth-button"
+            onclick="playGame('fifth-button', 4);"
+          ></button>
+        </div>
+        <div>
+          <button
+            class="sixth-button"
+            onclick="playGame('sixth-button', 5);"
+          ></button>
+        </div>
+        <div>
+          <button
+            class="seventh-button"
+            onclick="playGame('seventh-button', 6);"
+          ></button>
+        </div>
+        <div>
+          <button
+            class="eigth-button"
+            onclick="playGame('eigth-button', 7);"
+          ></button>
+        </div>
+        <div>
+          <button
+            class="ninth-button"
+            onclick="playGame('ninth-button', 8);"
+          ></button>
+        </div>
+      </div>
+    </div>
+    <div class="error-container"></div>
+    <div class="result-container"></div>
+    <div>
+      <button class="reset-button" onclick="resetGame();">Reset Game</button>
+    </div>
+    <script src="tic-tac-toe.js"></script>
+  </body>
+</html>
