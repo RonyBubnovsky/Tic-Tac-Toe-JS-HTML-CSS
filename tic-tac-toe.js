@@ -1,6 +1,11 @@
 let turnCounter = 0;
 let gameArray = [0,0,0,0,0,0,0,0,0];
 let currentResult = '';
+const results = {
+    xWins: 0, 
+    oWins: 0, 
+    draws: 0
+};
 
 function checkGameStatus() {
     if (gameArray[0] === gameArray[4] && gameArray[0] === gameArray[8]) {
@@ -121,6 +126,8 @@ function playGame(buttonPressed, index) {
         document.querySelector('.turn-container').innerHTML = '';
         document.querySelector('.result-container').innerHTML = 'X WON! &#x1F44D;';
         document.querySelector('.reset-button').innerHTML = 'Play Again';
+        results.xWins++;
+        document.querySelector('.results').innerHTML = `X-WINS: ${results.xWins}, O-WINS: ${results.oWins}, DRAWS: ${results.draws}`;
         return;
     }
 
@@ -128,13 +135,16 @@ function playGame(buttonPressed, index) {
         document.querySelector('.turn-container').innerHTML = '';
         document.querySelector('.result-container').innerHTML = 'O WON! &#x1F44D;';
         document.querySelector('.reset-button').innerHTML = 'Play Again';
-
+        results.oWins++;
+        document.querySelector('.results').innerHTML = `X-WINS: ${results.xWins}, O-WINS: ${results.oWins}, DRAWS: ${results.draws}`;
         return;
     }
 
     document.querySelector('.result-container').innerHTML = 'DRAW! &#x1F44D;';
     document.querySelector('.reset-button').innerHTML = 'Play Again';
     document.querySelector('.turn-container').innerHTML = '';
+    results.draws++;
+    document.querySelector('.results').innerHTML = `X-WINS: ${results.xWins}, O-WINS: ${results.oWins}, DRAWS: ${results.draws}`;
     return;
 
 
@@ -159,10 +169,6 @@ function resetGame() {
     document.querySelector('.turn-container').innerHTML = 'X Turn :';
     document.querySelector('.error-container').innerHTML = '';
     document.querySelector('.result-container').innerHTML = '';
-
-
-
-
 }
 
 function resetButton(b) {
@@ -180,4 +186,11 @@ function resetButton(b) {
 
 
 
+}
+
+function resetScores () {
+    results.draws = 0;
+    results.oWins = 0; 
+    results.xWins = 0;
+    document.querySelector('.results').innerHTML = `X-WINS: ${results.xWins}, O-WINS: ${results.oWins}, DRAWS: ${results.draws}`;
 }
