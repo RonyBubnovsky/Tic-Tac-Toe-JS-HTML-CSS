@@ -14,11 +14,11 @@ To play the game, follow these steps:
 
 1. Clone the repository to your local machine:
 
-''' git clone https://github.com/RonyBubnovsky/Tic-Tac-Toe-JS-HTML-CSS
+`git clone https://github.com/RonyBubnovsky/Tic-Tac-Toe-JS-HTML-CSS`
 
 2. Navigate to the directory containing the game:
 
-''' cd Tic-Tac-Toe-JS-HTML-CSS
+`cd Tic-Tac-Toe-JS-HTML-CSS`
 
 3. Open the `index.html` file in your web browser.
 
