@@ -4,16 +4,13 @@ pipeline {
     environment {
         REGISTRY = "10.100.102.175:8082"
         IMAGE    = "${REGISTRY}/tic-tac-toe:${env.BUILD_NUMBER}"
-        KCFG     = credentials('kubeconfig')
     }
 
     stages {
-
         stage('Ensure kubectl exists') {
             steps {
                 sh '''
                     if ! command -v kubectl >/dev/null 2>&1; then
-                      echo "Installing kubectl..."
                       URL=$(curl -sL https://dl.k8s.io/release/stable.txt)
                       curl -sL -o kubectl "https://dl.k8s.io/release/${URL}/bin/linux/amd64/kubectl"
                       install -m 0755 kubectl /usr/local/bin/kubectl
@@ -46,12 +43,14 @@ pipeline {
 
         stage('Deploy to Minikube') {
             steps {
-                writeFile file: 'kubeconfig', text: KCFG
-                sh """
-                    export KUBECONFIG=\$PWD/kubeconfig
-                    sed -i 's#tic-tac-toe:latest#tic-tac-toe:${BUILD_NUMBER}#' k8s/deployment.yaml
-                    kubectl apply -f k8s/deployment.yaml
-                """
+                // expose secret file as $KCFG
+                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KCFG')]) {
+                    sh """
+                        export KUBECONFIG=\$KCFG
+                        sed -i 's#tic-tac-toe:latest#tic-tac-toe:${BUILD_NUMBER}#' k8s/deployment.yaml
+                        kubectl apply -f k8s/deployment.yaml
+                    """
+                }
             }
         }
     }
