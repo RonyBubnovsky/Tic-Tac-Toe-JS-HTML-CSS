@@ -4,18 +4,23 @@ services:
     container_name: nexus
     restart: unless-stopped
     ports:
-      - "8081:8081"   # UI
-      - "8082:8082"   # Docker Registry
+      - "8081:8081"
+      - "8082:8082"
     volumes:
-      - "./nexus-data:/nexus-data"
+      - nexus-data-vol:/nexus-data    
 
   jenkins:
-    image: jenkins/jenkins:lts-jdk17
+    jenkins:
+    build: ./jenkins        
     container_name: jenkins
     user: root
     restart: unless-stopped
     ports:
       - "8080:8080"
     volumes:
-      - "./jenkins_home:/var/jenkins_home"
-      - "/var/run/docker.sock:/var/run/docker.sock"
+      - jenkins-home-vol:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock 
+
+volumes:
+  nexus-data-vol:
+  jenkins-home-vol:
