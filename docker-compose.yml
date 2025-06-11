@@ -10,7 +10,6 @@ services:
       - nexus-data-vol:/nexus-data    
 
   jenkins:
-    jenkins:
     build: ./jenkins        
     container_name: jenkins
     user: root
