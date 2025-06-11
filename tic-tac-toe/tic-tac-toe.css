@@ -1,0 +1,182 @@
+.game-header {
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
+    margin-top: 20px;
+    margin-bottom: 70px;
+    font-family: 'Mooli', sans-serif;
+    font-weight: bold;
+    width: 100%;
+}
+
+.game-board-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    height: 100px;
+    width: 100px;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 75px;
+}
+
+button:hover {
+    background-color: rgb(41, 40, 40);
+}
+
+.first-button {
+    border-top: none;
+    border-left: none;
+}
+
+.fourth-button {
+    border-left: none;
+}
+
+.seventh-button {
+    border-left: none;
+}
+
+.seventh-button, .eigth-button, .ninth-button {
+    border-bottom: none;
+}
+
+.ninth-button, .sixth-button, .third-button {
+    border-right: none;
+}
+
+.second-button, .third-button {
+    border-top: none;
+}
+
+.error-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    color: red;
+    font-size: 20px;
+}
+
+.result-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    margin-left: 70px;
+    font-size: 50px;
+    color: gold;
+}
+
+.x-style {
+    color: blue;
+}
+
+.o-style {
+    color: blueviolet;
+}
+
+.turn-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 100px;
+    font-size: 75px;
+    color: rgba(13, 183, 230, 0.999);
+    font-family: 'Fuggles', cursive;
+
+}
+
+.reset-button {
+    font-size: 16px;
+    height:50px;
+    width: 150px;
+    font-family: 'Lato', sans-serif;
+    background-color: darkred;
+    color: white;
+}
+
+.reset-button:hover {
+    background-color: darkred;
+    color: white;
+    box-shadow: inset 1px 1px 1px darkblue;
+}
+
+body {
+    background-color: rgb(41, 40, 40);
+    
+}
+
+.results {
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 30px;
+    color: white;
+}
+
+.reset-scores {
+    font-size: 16px;
+    height:50px;
+    width: 150px;
+    font-family: 'Lato', sans-serif;
+    color: white;
+    background-color: rgb(108, 79, 136);
+}
+
+
+.reset-scores:hover {
+    color: white;
+    background-color: rgb(108, 79, 136);
+    box-shadow: inset 1px 1px darkgoldenrod;
+}
+
+.scores-container, .reset-container {
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+@media (max-width: 750px) {
+
+    button {
+        height: 50px;
+        width: 50px;
+        font-size: 30px;
+    }
+
+    .turn-container {
+        font-size: 50px;
+    }
+
+    .result-container {
+        font-size: 28px;
+    }
+
+    .reset-button, .reset-scores {
+        font-size: 10px;
+        width: 75px;
+    }
+
+    .results {
+        font-size: 20px;
+    }
+    
+}
+
+

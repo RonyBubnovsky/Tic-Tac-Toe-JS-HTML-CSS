@@ -1,0 +1,3 @@
+# Jenkins & Nexus volumes
+jenkins_home/
+nexus-data/
