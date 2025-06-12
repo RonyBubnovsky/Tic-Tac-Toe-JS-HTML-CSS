@@ -42,13 +42,14 @@ pipeline {
             }
         }
 
-        stage('Deploy to Minikube') {
+   stage('Deploy to Minikube') {
     steps {
         withCredentials([file(credentialsId: 'kubeconfig', variable: 'KCFG')]) {
             sh """
                 export KUBECONFIG=\$KCFG
-                kubectl apply --validate=false -f k8s/deployment.yaml
-                kubectl set image deployment/tic-tac-deploy tic-tac-container=${IMAGE} --record
+                PORT=\$(grep -oE 'host.docker.internal:[0-9]+' \$KCFG | cut -d: -f2)
+                kubectl --server=https://host.docker.internal:\$PORT --insecure-skip-tls-verify apply -f k8s/deployment.yaml
+                kubectl --server=https://host.docker.internal:\$PORT --insecure-skip-tls-verify set image deployment/tic-tac-deploy tic-tac-container=${IMAGE} --record
             """
         }
     }
