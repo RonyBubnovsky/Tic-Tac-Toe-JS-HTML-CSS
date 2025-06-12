@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         IMAGE_NAME = "10.100.102.175:8082/docker-local/tic-tac-toe"
-        TAG = "latest"
+        TAG = "dev1"
     }
     stages {
         stage('Build Docker Image') {
