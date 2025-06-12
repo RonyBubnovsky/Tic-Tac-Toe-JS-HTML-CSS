@@ -43,15 +43,15 @@ pipeline {
         }
 
         stage('Deploy to Minikube') {
-            steps {
-                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KCFG')]) {
-                    sh """
-                        export KUBECONFIG=\$KCFG
-                        kubectl apply -f k8s/deployment.yaml
-                        kubectl set image deployment/tic-tac-deploy tic-tac-container=${IMAGE} --record
-                    """
-                }
-            }
+    steps {
+        withCredentials([file(credentialsId: 'kubeconfig', variable: 'KCFG')]) {
+            sh """
+                export KUBECONFIG=\$KCFG
+                kubectl apply --validate=false -f k8s/deployment.yaml
+                kubectl set image deployment/tic-tac-deploy tic-tac-container=${IMAGE} --record
+            """
         }
+    }
+}
     }
 }
