@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: tic-tac-container
-          image: 10.100.102.175:8082/docker-local/tic-tac-toe:latest
+          image: 10.100.102.175:8082/docker-local/tic-tac-toe:dev1
           ports:
             - containerPort: 80
 ---
