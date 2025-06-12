@@ -13,10 +13,11 @@ spec:
         app: tic-tac
     spec:
       imagePullSecrets:
-        - name: nexus-docker
+        - name: nexus-docker # secret created in cluster
       containers:
         - name: tic-tac-container
-          image: 10.100.102.175:8082/tic-tac-toe:latest
+          image: 10.100.102.175:8082/tic-tac-toe:latest # Jenkins will replace :latest with :<BUILD_NUMBER>
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
 ---
