@@ -7,6 +7,7 @@ pipeline {
     }
 
     stages {
+
         stage('Ensure kubectl exists') {
             steps {
                 sh '''
@@ -43,12 +44,11 @@ pipeline {
 
         stage('Deploy to Minikube') {
             steps {
-                // expose secret file as $KCFG
                 withCredentials([file(credentialsId: 'kubeconfig', variable: 'KCFG')]) {
                     sh """
                         export KUBECONFIG=\$KCFG
-                        sed -i 's#tic-tac-toe:latest#tic-tac-toe:${BUILD_NUMBER}#' k8s/deployment.yaml
                         kubectl apply -f k8s/deployment.yaml
+                        kubectl set image deployment/tic-tac-deploy tic-tac-container=${IMAGE} --record
                     """
                 }
             }
