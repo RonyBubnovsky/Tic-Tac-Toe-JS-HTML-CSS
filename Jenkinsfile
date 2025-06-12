@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-        IMAGE_NAME = "10.100.102.175:8082/docker-local/tic-tac-toe" 
-        TAG = "dev1" 
+        IMAGE_NAME = "10.100.102.175:8082/docker-local/tic-tac-toe"
+        TAG = "${env.BUILD_NUMBER}"
     }
     stages {
         stage('Build Docker Image') {
@@ -24,7 +24,8 @@ pipeline {
         stage('Deploy to Minikube') {
             steps {
                 bat """
-                kubectl rollout restart deployment tic-tac-deploy || kubectl apply -f k8s-deployment.yaml
+                powershell -Command "(Get-Content k8s-deployment.yaml).replace('IMAGE_TAG_TO_REPLACE', '%TAG%') | Set-Content k8s-deployment.generated.yaml"
+                kubectl apply -f k8s-deployment.generated.yaml
                 """
             }
         }
