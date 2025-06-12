@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        IMAGE_NAME = "localhost:8082/docker-local/tic-tac-toe"
+        IMAGE_NAME = "10.100.102.175:8082/docker-local/tic-tac-toe"
         TAG = "latest"
     }
     stages {
@@ -15,7 +15,7 @@ pipeline {
         stage('Push to Nexus') {
             steps {
                 script {
-                    docker.withRegistry('http://localhost:8082', 'nexus-credentials') {
+                    docker.withRegistry('http://10.100.102.175:8082', 'nexus-credentials') {
                         docker.image("${IMAGE_NAME}:${TAG}").push()
                     }
                 }
