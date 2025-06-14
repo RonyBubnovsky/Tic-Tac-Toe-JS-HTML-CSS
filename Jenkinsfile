@@ -37,23 +37,19 @@ $imageName = "tic-tac-toe"
 $keepTag   = $env:BUILD_NUMBER
 $baseUrl   = "$env:NEXUS_API/service/rest/v1"
 
-$pair   = "$env:NEXUS_USER:$env:NEXUS_PASS"
-$b64    = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($pair))
-$hdrs   = @{ Authorization = "Basic $b64" }
-
 $token = $null
 do {
     $u = "$baseUrl/search?repository=$repo&format=docker&docker.imageName=$imageName"
     if ($token) { $u += "&continuationToken=$token" }
 
-    $resp = Invoke-RestMethod -Method Get -Uri $u -Headers $hdrs
+    $json = & curl.exe -s -u "$env:NEXUS_USER`:$env:NEXUS_PASS" "$u"
+    $resp = $json | ConvertFrom-Json
 
     foreach ($c in $resp.items) {
         if ($c.version -ne $keepTag) {
             Write-Host "Deleting ${imageName}:$($c.version)"
-            Invoke-RestMethod -Method Delete `
-                              -Uri "$baseUrl/components/$($c.id)" `
-                              -Headers $hdrs
+            & curl.exe -s -X DELETE -u "$env:NEXUS_USER`:$env:NEXUS_PASS" `
+               "$baseUrl/components/$($c.id)" > $null
         }
     }
     $token = $resp.continuationToken
