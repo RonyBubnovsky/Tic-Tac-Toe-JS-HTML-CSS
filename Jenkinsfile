@@ -27,45 +27,44 @@ pipeline {
         }
 
         stage('Cleanup old images in Nexus') {
-            steps {
-                withCredentials([
-                    usernamePassword(
-                        credentialsId: 'nexus-credentials',
-                        usernameVariable: 'NEXUS_USER',
-                        passwordVariable: 'NEXUS_PASS')
-                ]) {
-                    powershell '''
-                    $repo      = "docker-local"
-                    $imageName = "tic-tac-toe"
-                    $keepTag   = $env:BUILD_NUMBER
-                    $baseUrl   = "$env:NEXUS_URL/service/rest/v1"
+    steps {
+        withCredentials([usernamePassword(
+            credentialsId: 'nexus-credentials',
+            usernameVariable: 'NEXUS_USER',
+            passwordVariable: 'NEXUS_PASS')]) {
 
-                    $continue = $null
-                    do {
-                        $url = "$baseUrl/search?repository=$repo&name=$imageName"
-                        if ($continue) { $url = "$url&continuationToken=$continue" }
+            powershell """
+            \$repo      = 'docker-local'
+            \$imageName = 'tic-tac-toe'
+            \$keepTag   = '${BUILD_NUMBER}'
+            \$baseUrl   = '${NEXUS_URL}/service/rest/v1'
 
-                        $resp = Invoke-RestMethod -Method Get -Uri $url `
-                                -Credential (New-Object pscredential(
-                                    $env:NEXUS_USER,
-                                    (ConvertTo-SecureString $env:NEXUS_PASS -AsPlainText -Force)))
+            \$b64 = [Convert]::ToBase64String(
+                    [Text.Encoding]::ASCII.GetBytes('${NEXUS_USER}:${NEXUS_PASS}'))
+            \$headers = @{ Authorization = \"Basic \$b64\" }
 
-                        foreach ($c in $resp.items) {
-                            if ($c.version -ne $keepTag) {
-                                Write-Host "Deleting $($c.name):$($c.version)"
-                                Invoke-RestMethod -Method Delete `
-                                    -Uri "$baseUrl/components/$($c.id)" `
-                                    -Credential (New-Object pscredential(
-                                        $env:NEXUS_USER,
-                                        (ConvertTo-SecureString $env:NEXUS_PASS -AsPlainText -Force)))
-                            }
-                        }
-                        $continue = $resp.continuationToken
-                    } while ($continue)
-                    '''
+            \$token = \$null
+            do {
+                \$search = \"\$baseUrl/search?repository=\$repo&format=docker\" +
+                           \"&docker.imageName=\$imageName\"
+                if (\$token) { \$search += \"&continuationToken=\$token\" }
+
+                \$resp = Invoke-RestMethod -Uri \$search -Headers \$headers -Method Get
+
+                foreach (\$comp in \$resp.items) {
+                    if (\$comp.version -ne \$keepTag) {
+                        Write-Host \"Deleting \$imageName:\$([\$comp.version])\"
+                        Invoke-RestMethod -Uri \"\$baseUrl/components/\$([\$comp.id])\" `
+                                          -Headers \$headers -Method Delete
+                    }
                 }
-            }
+                \$token = \$resp.continuationToken
+            } while (\$token)
+            """
         }
+    }
+}
+
 
         stage('Deploy to Minikube') {
             steps {
