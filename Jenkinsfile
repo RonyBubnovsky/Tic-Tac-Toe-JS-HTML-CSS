@@ -33,7 +33,7 @@ pipeline {
             usernameVariable: 'NEXUS_USER',
             passwordVariable: 'NEXUS_PASS')]) {
 
-        /* single-quoted Groovy block ⇒ no secrets leaked by interpolation */
+        
         powershell '''
 $repo      = "docker-local"
 $imageName = "tic-tac-toe"
