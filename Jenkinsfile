@@ -37,6 +37,10 @@ $imageName = "tic-tac-toe"
 $keepTag   = $env:BUILD_NUMBER
 $baseUrl   = "$env:NEXUS_API/service/rest/v1"
 
+$pair  = "$env:NEXUS_USER:$env:NEXUS_PASS"
+$b64   = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($pair))
+$hdrs  = @{ Authorization = "Basic $b64" }
+
 $token = $null
 do {
     $u = "$baseUrl/search?repository=$repo&format=docker&docker.imageName=$imageName"
@@ -49,7 +53,7 @@ do {
         if ($c.version -ne $keepTag) {
             Write-Host "Deleting ${imageName}:$($c.version)"
             & curl.exe -s -X DELETE -u "$env:NEXUS_USER`:$env:NEXUS_PASS" `
-               "$baseUrl/components/$($c.id)" > $null
+                "$baseUrl/components/$($c.id)" > $null
         }
     }
     $token = $resp.continuationToken
@@ -61,12 +65,10 @@ do {
 
         stage('Deploy to Minikube') {
             steps {
-                bat '''
-                powershell -Command "(Get-Content k8s-deployment.yaml) `
-                    -replace 'IMAGE_TAG_TO_REPLACE', '%TAG%' | `
-                    Set-Content k8s-deployment.generated.yaml"
-                kubectl apply -f k8s-deployment.generated.yaml
-                '''
+                powershell '''
+(Get-Content k8s-deployment.yaml) -replace 'IMAGE_TAG_TO_REPLACE', "$env:TAG" | Set-Content k8s-deployment.generated.yaml
+kubectl apply -f k8s-deployment.generated.yaml
+'''
             }
         }
     }
