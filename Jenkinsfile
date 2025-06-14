@@ -26,13 +26,14 @@ pipeline {
             }
         }
 
-   stage('Cleanup old images in Nexus') {
+  stage('Cleanup old images in Nexus') {
     steps {
         withCredentials([usernamePassword(
             credentialsId: 'nexus-credentials',
             usernameVariable: 'NEXUS_USER',
             passwordVariable: 'NEXUS_PASS')]) {
-                
+
+        /* single-quoted Groovy block ⇒ no secrets leaked by interpolation */
         powershell '''
 $repo      = "docker-local"
 $imageName = "tic-tac-toe"
@@ -52,8 +53,9 @@ do {
 
     foreach ($comp in $resp.items) {
         if ($comp.version -ne $keepTag) {
-            Write-Host "Deleting $imageName:$($comp.version)"
-            Invoke-RestMethod -Uri "$baseUrl/components/$($comp.id)" -Headers $hdrs -Method Delete
+            Write-Host "Deleting ${imageName}:$($comp.version)"
+            Invoke-RestMethod -Uri "${baseUrl}/components/$($comp.id)" `
+                              -Headers $hdrs -Method Delete
         }
     }
     $token = $resp.continuationToken
@@ -62,6 +64,7 @@ do {
         }
     }
 }
+
 
 
 
